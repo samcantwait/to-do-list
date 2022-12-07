@@ -1,0 +1,39 @@
+body {
+    overflow: hidden;
+}
+
+form {
+    text-align: center;
+    width: 100%;
+}
+
+.todo-item {
+    text-indent: 20px;
+    line-height: 3rem;
+    height: 3rem;
+    width: 50%;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: bisque;
+    list-style-position: inside;
+    position: relative;
+    transform-origin: top left;
+    overflow: hidden;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-50%, -50%);
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.complete {
+    margin: 0 1rem 0 auto;
+}
+
+.strike {
+    text-decoration: line-through;
+}
