@@ -50,7 +50,7 @@ body {
     transform: translateY(-50%);
   }
 
-  .complete.checked ~ .checkmark {
+  .complete.checked .checkmark {
     background-color: rgb(223, 96, 11);
   }
 

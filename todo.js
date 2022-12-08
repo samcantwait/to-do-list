@@ -30,20 +30,47 @@ const todoInput = () => {
 }
 todoInput();
 
+
+const drop = {
+    transform: ['rotate(95deg)', 'rotate(85deg)', 'rotate(92deg)', 'rotate(90deg)', 'translateY(100vh) rotate(90deg)'],
+    offset: [0.25, 0.5, 0.65, 0.75, 1], 
+};
+
+const shrink = {
+    transform: 'scale(0)',
+};
+
+const disappear = {
+    opacity: 0
+};
+
+const moveOut = {
+    transform: 'translateX(100vw)'
+}
+const animationArray = [[shrink, 800, 900], [disappear, 800, 900], [drop, 3000, 3000], [moveOut, 1000, 1000]];
+
+
 function todoDelete(deleteItem) {
     deleteItem.addEventListener('click', e => {
-        const listItem = deleteItem.closest('li');
-           
-        const drop = {
-            transform: ['rotate(95deg)', 'rotate(85deg)', 'rotate(92deg)', 'rotate(90deg)', 'translateY(100vh) rotate(90deg)'],
-            offset: [0.25, 0.5, 0.65, 0.75, 1], 
-        }
-
-        listItem.animate(drop, 2000)
+        const listItem = deleteItem.closest('.todo-item');
+        const randNumber = Math.random();
+        const animation = randNumber < .4 ? 
+            animationArray[2] : 
+            randNumber >=.4 && randNumber < .6 ?
+            animationArray[3] :
+            randNumber >=.6 && randNumber < .8 ? 
+            animationArray[1] : 
+            animationArray[0];
+        console.log(randNumber);
+        console.log(animation)
+        
+        listItem.style.transformOrigin = (randNumber < .5) ? 'top left' : 'center center';
+        console.log(listItem)
+        listItem.animate(animation[0], { duration: animation[1], fill: 'forwards' })
 
         setTimeout(() => {
             listItem.remove();
-        }, 1900)
+        }, animation[2])
     })
 }
 
