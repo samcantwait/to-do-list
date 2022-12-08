@@ -1,13 +1,16 @@
 body {
     overflow: hidden;
+    background-color: black;
 }
 
-form {
-    text-align: center;
-    width: 100%;
+.todo-form {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
 }
 
-.todo-item {
+.todo-item,
+.new-todo {
     text-indent: 20px;
     line-height: 3rem;
     height: 3rem;
