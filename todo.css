@@ -38,15 +38,6 @@ body {
     position: relative;
     padding-left: 1rem;
     cursor: pointer;
-    user-select: none;
-}
-
-input[type='checkbox'] {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
 }
 
 .checkmark {
@@ -59,11 +50,11 @@ input[type='checkbox'] {
     transform: translateY(-50%);
   }
 
-  input[type='checkbox']:checked ~ .checkmark {
+  .complete.checked ~ .checkmark {
     background-color: rgb(223, 96, 11);
   }
 
-  input[type='checkbox']:hover ~ .checkmark {
+  .complete:hover .checkmark {
     background-color: rgb(87, 165, 42);
   }
 
@@ -80,7 +71,7 @@ input[type='checkbox'] {
     display: none;
   }
 
-  input[type='checkbox']:checked ~ .checkmark::after {
+  .complete.checked .checkmark::after {
     display: inline-block;
   }
 

@@ -17,7 +17,7 @@ const todoInput = () => {
         const myTodo = document.querySelector('.item-to-add');
         if (!myTodo.value) return;
         liEl.classList.add('todo-item');
-        liEl.insertAdjacentHTML('beforeend', `${myTodo.value}<div class="container"><label class="complete">Complete<input type="checkbox"><span class="checkmark"></span></label><span class="delete">Delete</span></div>`);
+        liEl.insertAdjacentHTML('beforeend', `${myTodo.value}<div class="container"><div class="complete">Complete<span class="checkmark"></span></div><span class="delete">Delete</span></div>`);
         todoList.appendChild(liEl);
         const deleteItem = liEl.querySelector('.delete');
         todoDelete(deleteItem);
@@ -49,11 +49,10 @@ function todoDelete(deleteItem) {
 
 function todoComplete(complete) {
     complete.addEventListener('click', e => {
-        console.log(e);
-        const listItem = complete.closest('li');
-        console.log('complete', listItem)
+        console.log(complete);
+        complete.classList.toggle('checked')
+        const listItem = complete.closest('.todo-item');
         listItem.classList.toggle('strike');
         console.log('gfhf', listItem)
-
     })
 }
