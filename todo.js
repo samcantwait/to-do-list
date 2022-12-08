@@ -16,6 +16,7 @@ const todoInput = () => {
         e.preventDefault();
         const liEl = document.createElement('li');
         const myTodo = document.querySelector('.item-to-add');
+        if (!myTodo.value) return;
         liEl.classList.add('todo-item');
         liEl.insertAdjacentHTML('beforeend', `${myTodo.value}<div class="container"><span class="complete">Complete</span><span
         class="delete">Delete</span></div>`);
