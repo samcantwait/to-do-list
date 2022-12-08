@@ -45,8 +45,7 @@ const shrink = {
 };
 
 const disappear = {
-    transform: 'scale(10)',
-    height: '100vh',
+    transform: 'scale(50)',
     opacity: 0
 };
 
