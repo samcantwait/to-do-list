@@ -21,7 +21,7 @@ const todoInput = () => {
         const myTodo = document.querySelector('.item-to-add');
         if (!myTodo.value) return;
         liEl.classList.add('todo-item');
-        liEl.insertAdjacentHTML('beforeend', `${myTodo.value}<div class="container"><div class="complete"><span class='tooltip'>Mark as completed</span><span class="checkmark"></span></div><span class="delete">Delete</span></div>`);
+        liEl.insertAdjacentHTML('beforeend', `${myTodo.value}<div class="container"><button class="complete" aria-label='complete'><span class='tooltip'>Mark as completed</span><span class="checkmark"></span></button><span class="delete"><button aria-label='trash'><img src="trash.svg" alt="trash" class="trash" /><button></span></div>`);
         todoList.appendChild(liEl);
         const deleteItem = liEl.querySelector('.delete');
         todoDelete(deleteItem);
@@ -46,6 +46,7 @@ const shrink = {
 
 const disappear = {
     transform: 'scale(10)',
+    height: '100vh',
     opacity: 0
 };
 

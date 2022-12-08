@@ -39,12 +39,20 @@ body {
     cursor: pointer;
 }
 
+button {
+    width: 0;
+    height: 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
 .tooltip {
     display: none;
     position: absolute;
     top: 0;
     left: 3rem;
-    padding: 0 1rem;
+    padding: 1rem;
     transform: translate(-1rem, -65%);
     width: max-content;
     background-color: grey;
@@ -105,4 +113,10 @@ body {
 
 .hide{
     display: none;
+}
+
+.trash {
+    transform: translateY(6px);
+    width: 1.5rem;
+    height: 1.5rem;
 }
