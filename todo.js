@@ -25,11 +25,11 @@ function todoDelete(deleteItem) {
             offset: [0.15, 0.4, 0.6, 0.65, 1], 
         }
 
-        listItem.animate(drop, 1000)
+        listItem.animate(drop, 2000)
 
         setTimeout(() => {
             listItem.remove();
-        }, 1000)
+        }, 2000)
     })
 }
 
