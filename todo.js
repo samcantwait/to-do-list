@@ -1,4 +1,8 @@
 const todoList = document.querySelector('ol');
+const all = document.querySelector('.select-all');
+const completed = document.querySelector('.select-completed');
+const notCompleted = document.querySelector('.select-not-completed');
+const selectFilter = document.querySelector('.select-filter');
 let addTodo, id = 0;
 
 const todoInput = () => {
@@ -17,7 +21,7 @@ const todoInput = () => {
         const myTodo = document.querySelector('.item-to-add');
         if (!myTodo.value) return;
         liEl.classList.add('todo-item');
-        liEl.insertAdjacentHTML('beforeend', `${myTodo.value}<div class="container"><div class="complete">Complete<span class="checkmark"></span></div><span class="delete">Delete</span></div>`);
+        liEl.insertAdjacentHTML('beforeend', `${myTodo.value}<div class="container"><div class="complete"><span class='tooltip'>Mark as completed</span><span class="checkmark"></span></div><span class="delete">Delete</span></div>`);
         todoList.appendChild(liEl);
         const deleteItem = liEl.querySelector('.delete');
         todoDelete(deleteItem);
@@ -41,6 +45,7 @@ const shrink = {
 };
 
 const disappear = {
+    transform: 'scale(10)',
     opacity: 0
 };
 
@@ -50,21 +55,23 @@ const moveOut = {
 const animationArray = [[shrink, 800, 900], [disappear, 800, 900], [drop, 3000, 3000], [moveOut, 1000, 1000]];
 
 
+const animationChooser = () => {
+    const randNumber = Math.random();
+    return randNumber < .4 ? 
+    animationArray[2] : 
+    randNumber >=.4 && randNumber < .6 ?
+    animationArray[3] :
+    randNumber >=.6 && randNumber < .8 ? 
+    animationArray[1] : 
+    animationArray[0];
+} 
+
 function todoDelete(deleteItem) {
     deleteItem.addEventListener('click', e => {
         const listItem = deleteItem.closest('.todo-item');
-        const randNumber = Math.random();
-        const animation = randNumber < .4 ? 
-            animationArray[2] : 
-            randNumber >=.4 && randNumber < .6 ?
-            animationArray[3] :
-            randNumber >=.6 && randNumber < .8 ? 
-            animationArray[1] : 
-            animationArray[0];
-        console.log(randNumber);
-        console.log(animation)
+        const animation = animationChooser();
         
-        listItem.style.transformOrigin = (randNumber < .5) ? 'top left' : 'center center';
+        listItem.style.transformOrigin = animation[0] === drop ? 'top left' : 'center center';
         console.log(listItem)
         listItem.animate(animation[0], { duration: animation[1], fill: 'forwards' })
 
@@ -83,3 +90,19 @@ function todoComplete(complete) {
         console.log('gfhf', listItem)
     })
 }
+
+selectFilter.addEventListener('change', (e) => {
+    console.log(e.target.value)
+    const selectedFilter = e.target.value;
+    const todoItems = document.querySelectorAll('.todo-item')
+    if (todoItems.length < 1) return;
+    if (selectedFilter === 'completed') {
+    todoItems.forEach(item => !item.classList.contains('strike') ? item.classList.add('hide') : item.classList.remove('hide'))
+    }
+    if (selectedFilter === 'not completed') {
+    todoItems.forEach(item => item.classList.contains('strike') ? item.classList.add('hide') : item.classList.remove('hide'))
+    }
+    if (selectedFilter === 'all') todoItems.forEach(item => item.classList.remove('hide'))
+
+    console.log('items present', todoItems)
+})

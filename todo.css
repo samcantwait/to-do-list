@@ -1,5 +1,5 @@
 body {
-    overflow: hidden;
+    min-height: 200vh;
     background-color: black;
 }
 
@@ -21,7 +21,6 @@ body {
     list-style-position: inside;
     position: relative;
     transform-origin: top left;
-    overflow: hidden;
 }
 
 .container {
@@ -40,14 +39,33 @@ body {
     cursor: pointer;
 }
 
+.tooltip {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 3rem;
+    padding: 0 1rem;
+    transform: translate(-1rem, -65%);
+    width: max-content;
+    background-color: grey;
+    text-indent: 0;
+    color: white;
+    border-radius: 5px;
+    z-index: 2;
+}
+
+.complete:hover .tooltip {
+    display: inline-block;
+}
+
 .checkmark {
     position: absolute;
-    top: 50%;
+    bottom: 0;
     left: 0;
     height: 1.5rem;
     width: 1.5rem;
     background-color: rgb(164, 117, 192);
-    transform: translateY(-50%);
+    transform: translateY(25%);
   }
 
   .complete.checked .checkmark {
@@ -83,4 +101,8 @@ body {
     display: inline-block;
     cursor: pointer;
     margin-right: 2rem;
+}
+
+.hide{
+    display: none;
 }
