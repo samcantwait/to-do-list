@@ -28,15 +28,68 @@ body {
     position: absolute;
     top: 50%;
     right: 0;
-    transform: translate(-50%, -50%);
+    transform: translateY(-50%);
     margin-left: auto;
-    cursor: pointer;
 }
 
 .complete {
     margin: 0 1rem 0 auto;
+    display: inline-block;
+    position: relative;
+    padding-left: 1rem;
+    cursor: pointer;
+    user-select: none;
 }
+
+input[type='checkbox'] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: rgb(164, 117, 192);
+    transform: translateY(-50%);
+  }
+
+  input[type='checkbox']:checked ~ .checkmark {
+    background-color: rgb(223, 96, 11);
+  }
+
+  input[type='checkbox']:hover ~ .checkmark {
+    background-color: rgb(87, 165, 42);
+  }
+
+  .complete .checkmark::after {
+    content: "";
+    position: absolute;
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+    display: none;
+  }
+
+  input[type='checkbox']:checked ~ .checkmark::after {
+    display: inline-block;
+  }
 
 .strike {
     text-decoration: line-through;
+}
+
+.delete {
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 2rem;
 }

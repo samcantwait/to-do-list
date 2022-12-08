@@ -1,14 +1,13 @@
 const todoList = document.querySelector('ol');
-let addTodo;
+let addTodo, id = 0;
 
 const todoInput = () => {
     const li = document.createElement('li');
     li.classList.add('new-todo');
     const html = `
-        <form class="todo-form"><input type="text" class="item-to-add" /><button type="submit" class="add">+</button></form>
+        <form class="todo-form"><input type="text" class="item-to-add" placeholder="add item" /><button type="submit" class="add">+</button></form>
     `;
     li.insertAdjacentHTML('afterbegin', html);
-    console.log(li);
     todoList.appendChild(li);
     addTodo = document.querySelector('.todo-form');
 
@@ -18,20 +17,18 @@ const todoInput = () => {
         const myTodo = document.querySelector('.item-to-add');
         if (!myTodo.value) return;
         liEl.classList.add('todo-item');
-        liEl.insertAdjacentHTML('beforeend', `${myTodo.value}<div class="container"><span class="complete">Complete</span><span
-        class="delete">Delete</span></div>`);
+        liEl.insertAdjacentHTML('beforeend', `${myTodo.value}<div class="container"><label class="complete">Complete<input type="checkbox"><span class="checkmark"></span></label><span class="delete">Delete</span></div>`);
         todoList.appendChild(liEl);
         const deleteItem = liEl.querySelector('.delete');
         todoDelete(deleteItem);
-        const completeItem = liEl.querySelector('.complete');
-        complete(completeItem);
+        const complete = liEl.querySelector('.complete');
+        todoComplete(complete);
         document.querySelector('.new-todo').remove();
         todoInput();
+        id++;
     })
 }
 todoInput();
-
-
 
 function todoDelete(deleteItem) {
     deleteItem.addEventListener('click', e => {
@@ -50,9 +47,13 @@ function todoDelete(deleteItem) {
     })
 }
 
-function complete(completeItem) {
-    completeItem.addEventListener('click', e => {
-        const listItem = completeItem.closest('li');
-        listItem.classList.toggle('strike')
+function todoComplete(complete) {
+    complete.addEventListener('click', e => {
+        console.log(e);
+        const listItem = complete.closest('li');
+        console.log('complete', listItem)
+        listItem.classList.toggle('strike');
+        console.log('gfhf', listItem)
+
     })
 }
