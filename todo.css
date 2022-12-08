@@ -66,6 +66,10 @@ button {
     display: inline-block;
 }
 
+.complete:hover.checked .tooltip {
+    display: none;
+}
+
 .checkmark {
     position: absolute;
     bottom: 0;
@@ -103,6 +107,7 @@ button {
 
 .strike {
     text-decoration: line-through;
+    opacity: .5;
 }
 
 .delete {
