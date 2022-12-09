@@ -63,7 +63,7 @@ const disappear = {
 const moveOut = {
     transform: 'translateX(100vw)'
 }
-const animationArray = [[shrink, 800, 900], [disappear, 800, 900], [drop, 3000, 3000], [moveOut, 1000, 1000]];
+const animationArray = [[shrink, 800, 900], [disappear, 800, 900], [drop, 2500, 2500], [moveOut, 1000, 1000]];
 
 
 const animationChooser = () => {
