@@ -1,6 +1,5 @@
 body {
     min-height: 200vh;
-    background-color: black;
 }
 
 .todo-form {
@@ -21,6 +20,16 @@ body {
     list-style-position: inside;
     position: relative;
     transform-origin: top left;
+}
+
+.text {
+    display: inline-block;
+    outline: 0px solid transparent;
+}
+
+.text:active {
+    border: none;
+
 }
 
 .container {
@@ -45,6 +54,7 @@ button {
     border: none;
     outline: none;
     cursor: pointer;
+    background-color: transparent;
 }
 
 .tooltip {
@@ -106,8 +116,11 @@ button {
   }
 
 .strike {
+    filter: brightness(.8);
+}
+
+.strike-through {
     text-decoration: line-through;
-    opacity: .5;
 }
 
 .delete {

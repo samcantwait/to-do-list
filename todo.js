@@ -3,7 +3,7 @@ const all = document.querySelector('.select-all');
 const completed = document.querySelector('.select-completed');
 const notCompleted = document.querySelector('.select-not-completed');
 const selectFilter = document.querySelector('.select-filter');
-let addTodo, id = 0;
+let addTodo;
 
 const todoInput = () => {
     const li = document.createElement('li');
@@ -21,7 +21,7 @@ const todoInput = () => {
         const myTodo = document.querySelector('.item-to-add');
         if (!myTodo.value) return;
         liEl.classList.add('todo-item');
-        liEl.insertAdjacentHTML('beforeend', `${myTodo.value}<div class="container"><button class="complete" aria-label='complete'><span class='tooltip'>Mark as completed</span><span class="checkmark"></span></button><span class="delete"><button aria-label='trash'><img src="trash.svg" alt="trash" class="trash" /><button></span></div>`);
+        liEl.insertAdjacentHTML('beforeend', creatHTML(myTodo.value));
         todoList.appendChild(liEl);
         const deleteItem = liEl.querySelector('.delete');
         todoDelete(deleteItem);
@@ -29,11 +29,22 @@ const todoInput = () => {
         todoComplete(complete);
         document.querySelector('.new-todo').remove();
         todoInput();
-        id++;
+
+        const editText = liEl.querySelector('.text');
+        editText.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                editText.blur();
+            }
+        })
+        
     })
 }
 todoInput();
 
+function creatHTML(value) {
+    return `<span class='text' contenteditable="true" spellcheck="false">${value}</span><div class="container"><button class="complete" aria-label='complete'><span class='tooltip'>Mark as completed</span><span class="checkmark"></span></button><span class="delete"><button aria-label='trash'><img src="trash.svg" alt="trash" class="trash" /><button></span></div>`
+}
 
 const drop = {
     transform: ['rotate(95deg)', 'rotate(85deg)', 'rotate(92deg)', 'rotate(90deg)', 'translateY(100vh) rotate(90deg)'],
@@ -85,8 +96,11 @@ function todoComplete(complete) {
     complete.addEventListener('click', e => {
         console.log(complete);
         complete.classList.toggle('checked')
-        const listItem = complete.closest('.todo-item');
+        const listItem = complete.closest('li');
+        const text = listItem.firstChild;
+        console.log('text item is: ', text)
         listItem.classList.toggle('strike');
+        text.classList.toggle('strike-through')
         console.log('gfhf', listItem)
     })
 }
