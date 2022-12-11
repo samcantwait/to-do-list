@@ -2,6 +2,10 @@ body {
     min-height: 200vh;
 }
 
+.todo-list {
+    padding-bottom: 5rem;
+}
+
 .todo-form {
     margin: 0;
     padding: 0;
@@ -137,4 +141,43 @@ button {
     transform: translateY(6px);
     width: 1.5rem;
     height: 1.5rem;
+}
+
+.move-container {
+    display: inline-block;
+    cursor: grab;
+    text-indent: 0;
+}
+
+.move {
+    position: relative;
+    display: inline-block;
+    margin: 0 1rem;
+    height: .3rem;
+    background-color: green;
+    border-radius: 10px;
+    width: 2rem;
+}
+
+.move::before, 
+.move::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 2rem;
+    height: .3rem;
+    border-radius: 10px;
+    background-color: green;
+}
+
+.move::before {
+    transform: translateY(.5rem);
+}
+
+.move::after  {
+    transform: translateY(-.5rem);
+}
+
+.dragging {
+    background-color: green;
 }

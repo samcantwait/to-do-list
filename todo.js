@@ -3,7 +3,6 @@ const all = document.querySelector('.select-all');
 const completed = document.querySelector('.select-completed');
 const notCompleted = document.querySelector('.select-not-completed');
 const selectFilter = document.querySelector('.select-filter');
-let addTodo;
 
 const todoInput = () => {
     const li = document.createElement('li');
@@ -13,14 +12,14 @@ const todoInput = () => {
     `;
     li.insertAdjacentHTML('afterbegin', html);
     todoList.appendChild(li);
-    addTodo = document.querySelector('.todo-form');
+    const addTodo = document.querySelector('.todo-form');
 
     addTodo.addEventListener('submit', e => {
         e.preventDefault();
         const liEl = document.createElement('li');
         const myTodo = document.querySelector('.item-to-add');
         if (!myTodo.value) return;
-        liEl.classList.add('todo-item');
+        liEl.classList.add('todo-item', 'draggable');
         liEl.insertAdjacentHTML('beforeend', creatHTML(myTodo.value));
         todoList.appendChild(liEl);
         const deleteItem = liEl.querySelector('.delete');
@@ -36,14 +35,49 @@ const todoInput = () => {
                 e.preventDefault();
                 editText.blur();
             }
-        })
+        })   
         
+        const moveItem = liEl.querySelector('.move-container');
+        moveItem.addEventListener('mousedown', e => {
+            console.log('i want to move it move it')
+            liEl.setAttribute('draggable', true)
+        })
+        moveItem.addEventListener('mouseup', e => {
+            liEl.setAttribute('draggable', false)
+        })
+
+        liEl.addEventListener('dragstart', e => {
+            liEl.classList.add('dragging');
+        })
+          
+        todoList.addEventListener("dragover", (event) => {
+            event.preventDefault();
+            const afterElement = getDragAfterElement(todoList, event.clientY);
+            const draggable = document.querySelector('.dragging');
+            const nextTodo = todoList.querySelector('.new-todo');
+            if (afterElement.offset === -Infinity) todoList.insertBefore(draggable, nextTodo); 
+            else todoList.insertBefore(draggable, afterElement.element);
+        });
+
+        todoList.addEventListener('dragend', e => {
+            liEl.classList.remove('dragging');
+        })
     })
-}
+};
 todoInput();
 
+function getDragAfterElement(container, y) {
+    const draggables = [...container.querySelectorAll('.draggable:not(.dragging)')];
+    return draggables.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height/2;
+        if (offset < 0 && offset > closest.offset) return { offset: offset, element: child }
+        else return closest;
+    }, { offset: Number.NEGATIVE_INFINITY })
+}
+
 function creatHTML(value) {
-    return `<span class='text' contenteditable="true" spellcheck="false">${value}</span><div class="container"><button class="complete" aria-label='complete'><span class='tooltip'>Mark as completed</span><span class="checkmark"></span></button><span class="delete"><button aria-label='trash'><img src="trash.svg" alt="trash" class="trash" /><button></span></div>`
+    return `<span class='text' contenteditable="true" spellcheck="false">${value}</span><div class="container"><button class="complete" aria-label='complete'><span class='tooltip'>Mark as completed</span><span class="checkmark"></span></button><span class="delete"><button aria-label='trash'><img src="trash.svg" alt="trash" class="trash" draggable="false" /></button></span><div class="move-container"><div class="move"></div></div></div>`
 }
 
 const drop = {
@@ -63,18 +97,21 @@ const disappear = {
 const moveOut = {
     transform: 'translateX(100vw)'
 }
-const animationArray = [[shrink, 800, 900], [disappear, 800, 900], [drop, 2500, 2500], [moveOut, 1000, 1000]];
+const animationArray = [[shrink, 800, 900], [disappear, 800, 900], [drop, 2200, 2200], [moveOut, 1000, 1000]];
 
 
 const animationChooser = () => {
     const randNumber = Math.random();
-    return randNumber < .4 ? 
-    animationArray[2] : 
-    randNumber >=.4 && randNumber < .6 ?
-    animationArray[3] :
-    randNumber >=.6 && randNumber < .8 ? 
-    animationArray[1] : 
-    animationArray[0];
+    return animationArray[2];
+
+    // ADD ANIMATIONS
+    // randNumber < .4 ? 
+    // animationArray[2] : 
+    // randNumber >=.4 && randNumber < .6 ?
+    // animationArray[3] :
+    // randNumber >=.6 && randNumber < .8 ? 
+    // animationArray[1] : 
+    // animationArray[0];
 } 
 
 function todoDelete(deleteItem) {
