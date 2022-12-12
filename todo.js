@@ -4,7 +4,16 @@ const completed = document.querySelector('.select-completed');
 const notCompleted = document.querySelector('.select-not-completed');
 const selectFilter = document.querySelector('.select-filter');
 
-const todoInput = () => {
+const currentList = localStorage.getItem('list');
+console.log(currentList);
+JSON.parse(currentList).forEach(todo => {
+    const li = document.createElement('li');
+    li.classList.add('todo-item', 'draggable');
+    li.insertAdjacentHTML('beforeend', creatHTML(todo));
+    todoList.append(li);
+})
+
+const todoInput = () => {  
     const li = document.createElement('li');
     li.classList.add('new-todo');
     const html = `
@@ -156,4 +165,11 @@ selectFilter.addEventListener('change', (e) => {
     if (selectedFilter === 'all') todoItems.forEach(item => item.classList.remove('hide'))
 
     console.log('items present', todoItems)
+})
+
+window.addEventListener('unload', e => {
+    const allTodos = [...document.querySelectorAll('.todo-item')];
+    const todoContent = allTodos.map(todo => todo.innerText);
+    const listString = JSON.stringify(todoContent);
+    localStorage.setItem('list', listString)
 })
