@@ -90,7 +90,7 @@ todoList.addEventListener('submit', e => {
 
 todoList.addEventListener('click', e => {
     const target = e.target;
-    const li = e.target.closest('li')
+    const li = e.target.closest('li');
     const targetClass = target.classList[0];
     switch (targetClass) {
         case 'todo-list':
@@ -103,15 +103,17 @@ todoList.addEventListener('click', e => {
         case 'trash-btn':
             todoDelete(li);
             break;
-        case 'move':
-        case 'move-container':
-            li.setAttribute('draggable', true);
-            break;
         case 'text':
             break;
         default:
             return;
     }
+});
+
+todoList.addEventListener('mousedown', e => {
+    const target = e.target;
+    const li = e.target.closest('li');
+    if (target.classList[0] === 'move' || target.classList[0] === 'move-container') li.setAttribute('draggable', true);
 })
 
 todoList.addEventListener("dragover", (event) => {
