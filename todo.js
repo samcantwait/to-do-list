@@ -39,12 +39,6 @@ function createList(value) {
             e.preventDefault();
             editText.blur();
         }
-
-        listItem.animate(drop, 2000)
-
-        setTimeout(() => {
-            listItem.remove();
-        }, 2000)
     })
 }
 
@@ -57,7 +51,8 @@ function todoComplete(complete) {
     const listItem = complete.closest('li');
     const text = listItem.firstChild;
     listItem.classList.toggle('strike');
-    text.classList.toggle('strike-through')
+    text.classList.toggle('strike-through');
+    complete.blur();
 }
 
 function todoDelete(listItem) {
