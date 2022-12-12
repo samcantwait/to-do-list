@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="todo.css">
+    <script defer src="todo.js"></script>
+    <title>To Do List</title>
+</head>
+
+<body>
+    <form class="filter">
+        <select class="select-filter">
+            <option class="select-all" value="all">All</option>
+            <option class="select-completed" value="completed">Completed</option>
+            <option class="select-not-completed" value="not completed">Not Completed</option>
+        </select>
+    </form>
+    <button class="clear">Clear</button>
+
+    <div class="todo-container">
+        <ol class="todo-list"></ol>
+    </div>
+</body>
+
+</html>
