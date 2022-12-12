@@ -52,7 +52,7 @@ body {
     cursor: pointer;
 }
 
-button {
+.add, .complete, .trash-btn {
     width: 0;
     height: 0;
     border: none;

@@ -3,6 +3,7 @@ const all = document.querySelector('.select-all');
 const completed = document.querySelector('.select-completed');
 const notCompleted = document.querySelector('.select-not-completed');
 const selectFilter = document.querySelector('.select-filter');
+const clear = document.querySelector('.clear');
 
 const prevList = localStorage.getItem('list');
 JSON.parse(prevList).forEach(todo => {
@@ -52,7 +53,6 @@ function createList(value) {
         
         const moveItem = li.querySelector('.move-container');
         moveItem.addEventListener('mousedown', e => {
-            console.log('i want to move it move it')
             li.setAttribute('draggable', true)
         })
         moveItem.addEventListener('mouseup', e => {
@@ -68,8 +68,8 @@ function createList(value) {
             const afterElement = getDragAfterElement(todoList, event.clientY);
             const draggable = document.querySelector('.dragging');
             const nextTodo = todoList.querySelector('.new-todo');
-            if (afterElement.offset === -Infinity) todoList.insertBefore(draggable, nextTodo); 
-            else todoList.insertBefore(draggable, afterElement.element);
+            if (afterElement === undefined) todoList.insertBefore(draggable, nextTodo); 
+            else todoList.insertBefore(draggable, afterElement);
         });
 
         todoList.addEventListener('dragend', e => {
@@ -84,11 +84,11 @@ function getDragAfterElement(container, y) {
         const offset = y - box.top - box.height/2;
         if (offset < 0 && offset > closest.offset) return { offset: offset, element: child }
         else return closest;
-    }, { offset: Number.NEGATIVE_INFINITY })
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
 }
 
 function creatHTML(value) {
-    return `<span class='text' contenteditable="true" spellcheck="false">${value}</span><div class="container"><button class="complete" aria-label='complete'><span class='tooltip'>Mark as completed</span><span class="checkmark"></span></button><span class="delete"><button aria-label='trash'><img src="trash.svg" alt="trash" class="trash" draggable="false" /></button></span><div class="move-container"><div class="move"></div></div></div>`
+    return `<span class='text' contenteditable="true" spellcheck="false">${value}</span><div class="container"><button class="complete" aria-label='complete'><span class='tooltip'>Mark as completed</span><span class="checkmark"></span></button><span class="delete"><button aria-label='trash' class="trash-btn"><img src="trash.svg" alt="trash" class="trash" draggable="false" /></button></span><div class="move-container"><div class="move"></div></div></div>`
 }
 
 const drop = {
@@ -131,7 +131,6 @@ function todoDelete(deleteItem) {
         const animation = animationChooser();
         
         listItem.style.transformOrigin = animation[0] === drop ? 'top left' : 'center center';
-        console.log(listItem)
         listItem.animate(animation[0], { duration: animation[1], fill: 'forwards' })
 
         setTimeout(() => {
@@ -142,14 +141,11 @@ function todoDelete(deleteItem) {
 
 function todoComplete(complete) {
     complete.addEventListener('click', e => {
-        console.log(complete);
         complete.classList.toggle('checked')
         const listItem = complete.closest('li');
         const text = listItem.firstChild;
-        console.log('text item is: ', text)
         listItem.classList.toggle('strike');
         text.classList.toggle('strike-through')
-        console.log('gfhf', listItem)
     })
 }
 
@@ -165,8 +161,6 @@ selectFilter.addEventListener('change', (e) => {
     todoItems.forEach(item => item.classList.contains('strike') ? item.classList.add('hide') : item.classList.remove('hide'))
     }
     if (selectedFilter === 'all') todoItems.forEach(item => item.classList.remove('hide'))
-
-    console.log('items present', todoItems)
 })
 
 window.addEventListener('unload', e => {
@@ -174,4 +168,9 @@ window.addEventListener('unload', e => {
     const todoContent = allTodos.map(todo => todo.innerText);
     const listString = JSON.stringify(todoContent);
     localStorage.setItem('list', listString)
+})
+
+clear.addEventListener('click', e => {
+    const allTodos = document.querySelectorAll('.todo-item');
+    allTodos.forEach(todo => todo.remove())
 })
