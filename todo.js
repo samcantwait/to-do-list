@@ -4,13 +4,12 @@ const completed = document.querySelector('.select-completed');
 const notCompleted = document.querySelector('.select-not-completed');
 const selectFilter = document.querySelector('.select-filter');
 
-const currentList = localStorage.getItem('list');
-console.log(currentList);
-JSON.parse(currentList).forEach(todo => {
-    makeListEl(todo);
+const prevList = localStorage.getItem('list');
+JSON.parse(prevList).forEach(todo => {
+    createList(todo);
 })
 
-const todoInput = () => {  
+const createForm = () => {  
     const li = document.createElement('li');
     li.classList.add('new-todo');
     const html = `
@@ -24,15 +23,15 @@ const todoInput = () => {
         e.preventDefault();
         const myTodo = document.querySelector('.item-to-add');
         if (!myTodo.value) return;
-        makeListEl(myTodo.value);
+        createList(myTodo.value);
         document.querySelector('.new-todo').remove();
-        todoInput();
+        createForm();
 
     })
 };
-todoInput();
+createForm();
 
-function makeListEl(value) {
+function createList(value) {
     const li = document.createElement('li');
         
         li.classList.add('todo-item', 'draggable');
