@@ -1,13 +1,19 @@
 body {
-    overflow: hidden;
+    min-height: 200vh;
 }
 
-form {
-    text-align: center;
-    width: 100%;
+.todo-list {
+    padding-bottom: 5rem;
 }
 
-.todo-item {
+.todo-form {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+.todo-item,
+.new-todo {
     text-indent: 20px;
     line-height: 3rem;
     height: 3rem;
@@ -18,22 +24,169 @@ form {
     list-style-position: inside;
     position: relative;
     transform-origin: top left;
-    overflow: hidden;
+}
+
+.text {
+    display: inline-block;
+    outline: 0px solid transparent;
+}
+
+.text:active {
+    border: none;
+
 }
 
 .container {
+    display: flex;
     position: absolute;
     top: 50%;
     right: 0;
-    transform: translate(-50%, -50%);
-    margin-left: auto;
-    cursor: pointer;
+    margin-right: 1rem;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-50%);
 }
 
 .complete {
-    margin: 0 1rem 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add,
+.complete,
+.trash-btn {
+    position: relative;
+    width: 0;
+    height: 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    margin: 1rem;
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 3rem;
+    padding: 1rem;
+    transform: translate(-1rem, -65%);
+    width: max-content;
+    background-color: grey;
+    text-indent: 0;
+    color: white;
+    border-radius: 5px;
+    z-index: 2;
+}
+
+.complete:hover .tooltip,
+.complete:focus .tooltip,
+.trash-btn:hover .tooltip,
+.trash-btn:focus .tooltip {
+    display: inline-block;
+}
+
+.complete:hover.checked .tooltip {
+    display: none;
+}
+
+.checkmark {
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: rgb(164, 117, 192);
+}
+
+.complete.checked .checkmark {
+    background-color: rgb(223, 96, 11);
+}
+
+.complete:hover .checkmark {
+    background-color: rgb(87, 165, 42);
+}
+
+.complete .checkmark::after {
+    content: "";
+    position: absolute;
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+    display: none;
+}
+
+.complete.checked .checkmark::after {
+    display: inline-block;
 }
 
 .strike {
+    filter: brightness(.8);
+}
+
+.strike-through {
     text-decoration: line-through;
+}
+
+.delete {
+    position: absolute;
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
+
+.trash {
+    display: inline-block;
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 5px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.move-container {
+    display: inline-block;
+    cursor: grab;
+    text-indent: 0;
+    line-height: 1;
+}
+
+.move {
+    position: relative;
+    display: inline-block;
+    height: .3rem;
+    margin: 1rem;
+    background-color: green;
+    border-radius: 10px;
+    width: 2rem;
+}
+
+.move::before,
+.move::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 2rem;
+    height: .3rem;
+    border-radius: 10px;
+    background-color: green;
+}
+
+.move::before {
+    transform: translateY(.5rem);
+}
+
+.move::after {
+    transform: translateY(-.5rem);
+}
+
+.dragging {
+    background-color: green;
 }

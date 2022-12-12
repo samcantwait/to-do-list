@@ -11,17 +11,17 @@
 </head>
 
 <body>
-    <form class="enter-todo">
-        <input type="text" class="my-todo">
-        <button>Add</button>
+    <form class="filter">
+        <select class="select-filter">
+            <option class="select-all" value="all">All</option>
+            <option class="select-completed" value="completed">Completed</option>
+            <option class="select-not-completed" value="not completed">Not Completed</option>
+        </select>
     </form>
-    <div class="todo-container">
-        <ol class="todo-list">
-            <li class="todo-item">Design a todo list.<div class="container"><span class="complete">Complete</span> <span
-                        class="delete">Delete</span></div>
-            </li>
+    <button class="clear">Clear</button>
 
-            </ul>
+    <div class="todo-container">
+        <ol class="todo-list"></ol>
     </div>
 </body>
 
