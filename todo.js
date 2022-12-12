@@ -7,10 +7,7 @@ const selectFilter = document.querySelector('.select-filter');
 const currentList = localStorage.getItem('list');
 console.log(currentList);
 JSON.parse(currentList).forEach(todo => {
-    const li = document.createElement('li');
-    li.classList.add('todo-item', 'draggable');
-    li.insertAdjacentHTML('beforeend', creatHTML(todo));
-    todoList.append(li);
+    makeListEl(todo);
 })
 
 const todoInput = () => {  
@@ -25,20 +22,28 @@ const todoInput = () => {
 
     addTodo.addEventListener('submit', e => {
         e.preventDefault();
-        const liEl = document.createElement('li');
         const myTodo = document.querySelector('.item-to-add');
         if (!myTodo.value) return;
-        liEl.classList.add('todo-item', 'draggable');
-        liEl.insertAdjacentHTML('beforeend', creatHTML(myTodo.value));
-        todoList.appendChild(liEl);
-        const deleteItem = liEl.querySelector('.delete');
-        todoDelete(deleteItem);
-        const complete = liEl.querySelector('.complete');
-        todoComplete(complete);
+        makeListEl(myTodo.value);
         document.querySelector('.new-todo').remove();
         todoInput();
 
-        const editText = liEl.querySelector('.text');
+    })
+};
+todoInput();
+
+function makeListEl(value) {
+    const li = document.createElement('li');
+        
+        li.classList.add('todo-item', 'draggable');
+        li.insertAdjacentHTML('beforeend', creatHTML(value));
+        todoList.appendChild(li);
+        const deleteItem = li.querySelector('.delete');
+        todoDelete(deleteItem);
+        const complete = li.querySelector('.complete');
+        todoComplete(complete);
+
+        const editText = li.querySelector('.text');
         editText.addEventListener('keydown', e => {
             if (e.key === 'Enter') {
                 e.preventDefault();
@@ -46,17 +51,17 @@ const todoInput = () => {
             }
         })   
         
-        const moveItem = liEl.querySelector('.move-container');
+        const moveItem = li.querySelector('.move-container');
         moveItem.addEventListener('mousedown', e => {
             console.log('i want to move it move it')
-            liEl.setAttribute('draggable', true)
+            li.setAttribute('draggable', true)
         })
         moveItem.addEventListener('mouseup', e => {
-            liEl.setAttribute('draggable', false)
+            li.setAttribute('draggable', false)
         })
 
-        liEl.addEventListener('dragstart', e => {
-            liEl.classList.add('dragging');
+        li.addEventListener('dragstart', e => {
+            li.classList.add('dragging');
         })
           
         todoList.addEventListener("dragover", (event) => {
@@ -69,11 +74,9 @@ const todoInput = () => {
         });
 
         todoList.addEventListener('dragend', e => {
-            liEl.classList.remove('dragging');
+            li.classList.remove('dragging');
         })
-    })
-};
-todoInput();
+}
 
 function getDragAfterElement(container, y) {
     const draggables = [...container.querySelectorAll('.draggable:not(.dragging)')];
