@@ -95,9 +95,11 @@ todoList.addEventListener('click', e => {
         case 'todo-list':
             break;
         case 'checkmark':
+        case 'complete':
             todoComplete(target.closest('.complete'));
             break;
         case 'delete':
+        case 'trash-btn':
             todoDelete(li);
             break;
         case 'move':
@@ -131,9 +133,7 @@ todoList.addEventListener('dragend', e => {
     li.setAttribute('draggable', false);
 });
 
-// todoList.addEventListener('keydown', e => {
-//     console.log(e);
-// })
+
 
 
 
