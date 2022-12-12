@@ -43,7 +43,7 @@ function createList(value) {
 }
 
 function createHTML(value) {
-    return `<span class='text' contenteditable="true" spellcheck="false">${value}</span><div class="container"><button class="complete" aria-label='complete'><span class='tooltip'>Mark as completed</span><span class="checkmark"></span></button><button aria-label='trash' class="trash-btn"><img src="trash.svg" alt="trash" class="delete trash" draggable="false" /></button><div class="move-container"><div class="move"></div></div></div>`
+    return `<span class='text' contenteditable="true" spellcheck="false">${value}</span><div class="container"><button class="complete" aria-label='complete'><span class='tooltip'>Mark as completed</span><span class="checkmark"></span></button><button aria-label='trash' class="trash-btn"><span class='tooltip'>Trash</span><img src="trash.svg" alt="trash" class="delete trash" draggable="false" /></button><div class="move-container"><div class="move"></div></div></div>`
 }
 
 function todoComplete(complete) {
@@ -133,13 +133,34 @@ todoList.addEventListener('dragend', e => {
     li.setAttribute('draggable', false);
 });
 
+selectFilter.addEventListener('change', (e) => {
+    console.log(e.target.value)
+    const selectedFilter = e.target.value;
+    const todoItems = document.querySelectorAll('.todo-item')
+    if (todoItems.length < 1) return;
+    if (selectedFilter === 'completed') {
+        todoItems.forEach(item => !item.classList.contains('strike') ? item.classList.add('hide') : item.classList.remove('hide'))
+    }
+    if (selectedFilter === 'not completed') {
+        todoItems.forEach(item => item.classList.contains('strike') ? item.classList.add('hide') : item.classList.remove('hide'))
+    }
+    if (selectedFilter === 'all') todoItems.forEach(item => item.classList.remove('hide'))
+})
+
+window.addEventListener('unload', e => {
+    const allTodos = [...document.querySelectorAll('.todo-item')];
+    const todoContent = allTodos.map(todo => todo.innerText);
+    const listString = JSON.stringify(todoContent);
+    localStorage.setItem('list', listString)
+})
+
+clear.addEventListener('click', e => {
+    const allTodos = document.querySelectorAll('.todo-item');
+    allTodos.forEach(todo => todo.remove())
+})
 
 
-
-
-
-
-
+////// ANIMATIONS
 const drop = {
     transform: ['rotate(95deg)', 'rotate(85deg)', 'rotate(92deg)', 'rotate(90deg)', 'translateY(100vh) rotate(90deg)'],
     offset: [0.25, 0.5, 0.65, 0.75, 1],
@@ -173,33 +194,3 @@ const animationChooser = () => {
     // animationArray[1] : 
     // animationArray[0];
 }
-
-
-
-
-
-selectFilter.addEventListener('change', (e) => {
-    console.log(e.target.value)
-    const selectedFilter = e.target.value;
-    const todoItems = document.querySelectorAll('.todo-item')
-    if (todoItems.length < 1) return;
-    if (selectedFilter === 'completed') {
-        todoItems.forEach(item => !item.classList.contains('strike') ? item.classList.add('hide') : item.classList.remove('hide'))
-    }
-    if (selectedFilter === 'not completed') {
-        todoItems.forEach(item => item.classList.contains('strike') ? item.classList.add('hide') : item.classList.remove('hide'))
-    }
-    if (selectedFilter === 'all') todoItems.forEach(item => item.classList.remove('hide'))
-})
-
-window.addEventListener('unload', e => {
-    const allTodos = [...document.querySelectorAll('.todo-item')];
-    const todoContent = allTodos.map(todo => todo.innerText);
-    const listString = JSON.stringify(todoContent);
-    localStorage.setItem('list', listString)
-})
-
-clear.addEventListener('click', e => {
-    const allTodos = document.querySelectorAll('.todo-item');
-    allTodos.forEach(todo => todo.remove())
-})

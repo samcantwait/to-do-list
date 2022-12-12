@@ -81,7 +81,10 @@ body {
     z-index: 2;
 }
 
-.complete:hover .tooltip {
+.complete:hover .tooltip,
+.complete:focus .tooltip,
+.trash-btn:hover .tooltip,
+.trash-btn:focus .tooltip {
     display: inline-block;
 }
 
