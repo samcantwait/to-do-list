@@ -1,34 +1,118 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+
 body {
-    min-height: 200vh;
+    box-sizing: border-box;
+    font-size: 1.6rem;
+    background-image: linear-gradient(to bottom right, rgb(53, 130, 245), rgb(16, 62, 131));
+    min-width: 100vw;
+    min-height: 100vh;
+}
+
+.flex-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.main-container {
+    padding: 5rem;
+    min-width: 80rem;
+    margin: auto;
+    background-color: white;
+    border-radius: 5rem;
+}
+
+.form-container {
+    margin: 2rem auto;
+    display: flex;
+    gap: 1rem;
+}
+
+.filter {
+    width: 100%;
+}
+
+.select-filter {
+    height: 4rem;
+    border-radius: 1rem;
+    border: 1px solid rgb(163, 163, 163);
+    width: 100%;
+    font-size: 1.6rem;
+}
+
+.clear {
+    padding: 0 2rem;
+    height: 4rem;
+    background-color: rgb(27, 88, 219);
+    border-radius: 1rem;
+    border: none;
+    color: white;
+    font-weight: 100;
+    letter-spacing: 2px;
+    font-size: 1.5rem;
+    width: 50%;
 }
 
 .todo-list {
+    position: relative;
     padding-bottom: 5rem;
 }
 
 .todo-form {
-    margin: 0;
+    position: absolute;
+    top: 0;
+    margin: auto;
     padding: 0;
     display: inline-block;
+    width: 100%;
+}
+
+.item-to-add {
+    height: 4rem;
+    width: 80%;
+    border-radius: 1rem;
+    border: none;
+}
+
+.todo-container {
+    padding-top: 2rem;
 }
 
 .todo-item,
 .new-todo {
-    text-indent: 20px;
-    line-height: 3rem;
-    height: 3rem;
-    width: 50%;
-    margin: 20px auto;
-    padding: 10px;
-    background-color: bisque;
-    list-style-position: inside;
     position: relative;
+    text-indent: 2rem;
+    line-height: 4.8rem;
+    height: 4.8rem;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: rgb(222, 232, 252);
+    list-style-position: inside;
     transform-origin: top left;
+    border-radius: 1rem;
+    border: 1px solid rgb(163, 163, 163);
+    width: 100%;
+    font-size: 1.6rem;
 }
 
 .text {
     display: inline-block;
     outline: 0px solid transparent;
+    position: absolute;
+    top: 0;
 }
 
 .text:active {
@@ -41,7 +125,7 @@ body {
     position: absolute;
     top: 50%;
     right: 0;
-    margin-right: 1rem;
+    margin-right: 1.6rem;
     align-items: center;
     justify-content: center;
     transform: translateY(-50%);
@@ -63,16 +147,16 @@ body {
     outline: none;
     cursor: pointer;
     background-color: transparent;
-    margin: 1rem;
+    margin: 1.6rem;
 }
 
 .tooltip {
     display: none;
     position: absolute;
     top: 0;
-    left: 3rem;
-    padding: 1rem;
-    transform: translate(-1rem, -65%);
+    left: 4.8rem;
+    padding: 1.6rem;
+    transform: translate(-1.6rem, -65%);
     width: max-content;
     background-color: grey;
     text-indent: 0;
@@ -94,17 +178,18 @@ body {
 
 .checkmark {
     position: absolute;
-    height: 1.5rem;
-    width: 1.5rem;
-    background-color: rgb(164, 117, 192);
+    height: 2.4rem;
+    width: 2.4rem;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
 }
 
 .complete.checked .checkmark {
-    background-color: rgb(223, 96, 11);
+    background-color: rgb(87, 165, 42);
 }
 
 .complete:hover .checkmark {
-    background-color: rgb(87, 165, 42);
+    background-color: rgb(223, 96, 11);
 }
 
 .complete .checkmark::after {
@@ -113,7 +198,7 @@ body {
     left: 9px;
     top: 5px;
     width: 5px;
-    height: 10px;
+    height: 1rem;
     border: solid white;
     border-width: 0 3px 3px 0;
     transform: rotate(45deg);
@@ -144,9 +229,8 @@ body {
 .trash {
     display: inline-block;
     position: absolute;
-    width: 1.5rem;
-    height: 1.5rem;
-    padding: 5px;
+    width: 2.4rem;
+    height: 2.4rem;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -161,11 +245,12 @@ body {
 .move {
     position: relative;
     display: inline-block;
-    height: .3rem;
-    margin: 1rem;
-    background-color: green;
+    height: .48rem;
+    margin: 1.6rem;
+    background-color: currentColor;
     border-radius: 10px;
-    width: 2rem;
+    width: 3.2rem;
+    color: rgb(3, 53, 163);
 }
 
 .move::before,
@@ -173,20 +258,20 @@ body {
     content: '';
     position: absolute;
     left: 0;
-    width: 2rem;
-    height: .3rem;
+    width: 3.2rem;
+    height: .48rem;
     border-radius: 10px;
-    background-color: green;
+    background-color: currentColor;
 }
 
 .move::before {
-    transform: translateY(.5rem);
+    transform: translateY(.8rem);
 }
 
 .move::after {
-    transform: translateY(-.5rem);
+    transform: translateY(-.8rem);
 }
 
 .dragging {
-    background-color: green;
+    background-color: currentColor;
 }

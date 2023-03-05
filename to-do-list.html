@@ -11,17 +11,22 @@
 </head>
 
 <body>
-    <form class="filter">
-        <select class="select-filter">
-            <option class="select-all" value="all">All</option>
-            <option class="select-completed" value="completed">Completed</option>
-            <option class="select-not-completed" value="not completed">Not Completed</option>
-        </select>
-    </form>
-    <button class="clear">Clear</button>
-
-    <div class="todo-container">
-        <ol class="todo-list"></ol>
+    <div class="flex-container">
+        <div class="main-container">
+            <div class="form-container">
+                <form class="filter">
+                    <select class="select-filter">
+                        <option class="select-all" value="all">All</option>
+                        <option class="select-completed" value="completed">Completed</option>
+                        <option class="select-not-completed" value="not completed">Not Completed</option>
+                    </select>
+                </form>
+                <button class="clear">Clear List</button>
+            </div>
+            <div class="todo-container">
+                <ol class="todo-list"></ol>
+            </div>
+        </div>
     </div>
 </body>
 
