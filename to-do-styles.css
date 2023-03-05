@@ -3,7 +3,6 @@
 *::before {
     margin: 0;
     padding: 0;
-    box-sizing: inherit;
 }
 
 html {
@@ -12,7 +11,6 @@ html {
 }
 
 body {
-    box-sizing: border-box;
     font-size: 1.6rem;
     background-image: linear-gradient(to bottom right, rgb(53, 130, 245), rgb(16, 62, 131));
     min-width: 100vw;
@@ -46,7 +44,7 @@ body {
 }
 
 .select-filter {
-    height: 4rem;
+    height: 5rem;
     border-radius: 1rem;
     border: 1px solid rgb(163, 163, 163);
     width: 100%;
@@ -55,7 +53,7 @@ body {
 
 .clear {
     padding: 0 2rem;
-    height: 4rem;
+    height: 5rem;
     background-color: rgb(27, 88, 219);
     border-radius: 1rem;
     border: none;
@@ -73,7 +71,8 @@ body {
 
 .todo-form {
     position: absolute;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
     margin: auto;
     padding: 0;
     display: inline-block;
@@ -81,10 +80,18 @@ body {
 }
 
 .item-to-add {
-    height: 4rem;
+    height: 100%;
     width: 80%;
     border-radius: 1rem;
     border: none;
+    background-color: rgb(222, 232, 252);
+    text-indent: 1rem;
+    font-size: 1.6rem;
+    font-family: sans-serif;
+}
+
+.item-to-add:focus {
+    outline: none;
 }
 
 .todo-container {
@@ -98,21 +105,20 @@ body {
     line-height: 4.8rem;
     height: 4.8rem;
     margin: 2rem auto;
-    padding: 1rem;
+    padding: .5rem;
     background-color: rgb(222, 232, 252);
     list-style-position: inside;
     transform-origin: top left;
     border-radius: 1rem;
     border: 1px solid rgb(163, 163, 163);
-    width: 100%;
     font-size: 1.6rem;
 }
 
 .text {
     display: inline-block;
     outline: 0px solid transparent;
-    position: absolute;
-    top: 0;
+    font-size: 1.9rem;
+    font-family: sans-serif;
 }
 
 .text:active {
@@ -148,6 +154,11 @@ body {
     cursor: pointer;
     background-color: transparent;
     margin: 1.6rem;
+}
+
+.add {
+    font-size: 3rem;
+    margin: 0;
 }
 
 .tooltip {
@@ -273,5 +284,5 @@ body {
 }
 
 .dragging {
-    background-color: currentColor;
+    background-color: grey;
 }
